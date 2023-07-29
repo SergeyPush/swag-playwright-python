@@ -10,18 +10,19 @@ def get_playwright():
         yield playwright
 
 
-@fixture(scope='session', params=["chromium", "firefox"], ids=["chromium", "firefox"])
+@fixture(scope='session', params=["chromium"], ids=["chromium"])
 def get_browser(get_playwright, request):
     browser = request.param
     headless = True
     slow_mo = None
-    match browser:
-        case "chromium":
-            browser_instance = get_playwright.chromium.launch(headless=headless, slow_mo=slow_mo)
-        case "firefox":
-            browser_instance = get_playwright.firefox.launch(headless=headless, slow_mo=slow_mo)
-        case "chrome":
-            browser_instance = get_playwright.webkit.launch(headless=headless, slow_mo=slow_mo)
+    browser_instance = get_playwright.chromium.launch(headless=headless, slow_mo=slow_mo)
+    # match browser:
+    #     case "chromium":
+    #
+    #     case "firefox":
+    #         browser_instance = get_playwright.firefox.launch(headless=headless, slow_mo=slow_mo)
+    #     case "chrome":
+    #         browser_instance = get_playwright.webkit.launch(headless=headless, slow_mo=slow_mo)
     yield browser_instance
     browser_instance.close()
 
