@@ -32,7 +32,7 @@ class CheckoutOverviewPage:
     def click_finish_button(self):
         self.finish_button.click()
 
-    def _get_prices(self, item: str | list):
+    def _get_prices(self, item):
         extract_number = lambda x: float(x.split("$")[1])
         if type(item) is list:
             return [extract_number(i) for i in item]
